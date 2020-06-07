@@ -1,10 +1,14 @@
-/********************** 
-GAME RULES
-
--The game has two
-************************/
+/**
+ * Game RULES
+ * 
+ * challenge 2: Add an input field to the HTML where players can set the winning score, so that they can change the predefined
+  score of 100.( hint: You can read that value with the .value property in javascript. this is the good oopportunity
+  to use the google to figure this out)   
+ */
 
 var scores, roundScore, activePlayer,gamePlaying;
+var tempDice =0;
+var maxScoreToWin;
 
  init();
 
@@ -19,7 +23,9 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     if(gamePlaying){
 
         //1. random no
+        console.log('purani value ' + tempDice);
   var dice = Math.floor(Math.random() * 6) + 1;
+  console.log('nayi value ' + dice);
   //2. display the  result
   //first we have to make it visible again so we have to display the block
   var diceDOM = document.querySelector(".dice");
@@ -29,10 +35,27 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
   //3. update the round score if the rolled number was not a 1/
   if (dice !== 1) {
     //add score
-    roundScore += dice;
+    if(tempDice === 6 && dice === 6){
+    console.log('purani === nayi ');
+    console.log(' ');
+         //1. remove respective global score to zero
+         scores[activePlayer]= 0;
+         document.getElementById("score-" + activePlayer).textContent = scores[activePlayer];
+         //2.  change the turn 
+         nextPlayer();
+    }
+    else{
+      tempDice = dice;
+      console.log('purani aur nayi value not same ');
+      console.log(' ');
+      roundScore += dice; 
     document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
+    }
+    
+  }  else {
     //next player
+    console.log('next player wale me');
+    console.log(' ');
     nextPlayer();
   }
 
@@ -51,7 +74,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     scores[activePlayer];
 
   //check if player won the game
-  if (scores[activePlayer] >= 20) {
+  if (scores[activePlayer] >= maxScoreToWin) {
     document.getElementById("name-" + activePlayer).textContent = "Winner!";
     //not a good way to use css in js we simply use the class
     document.querySelector(".dice").style.display = "none";
@@ -67,6 +90,11 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
 
 //For resetting all the values this time using another way of calling a function
 document.querySelector(".btn-new").addEventListener("click", init);
+
+document.getElementById("submit-score").addEventListener("click", function(){
+  maxScoreToWin = document.getElementById('score-value').value;
+  console.log('maxScoreToWin = ' + maxScoreToWin);
+});
 
 
 function nextPlayer() {

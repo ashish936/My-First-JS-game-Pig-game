@@ -151,4 +151,29 @@ i {
 }
 
 .winner { background-color: #f7f7f7; }
-.winner .player-name { font-weight: 300; color: #EB4D4D; } 
+.winner .player-name { font-weight: 300; color: #EB4D4D; }
+
+#submit-score-value {
+    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%);
+    height: 30px;
+    font-size: large;
+    box-shadow: black;
+    width: 60px;
+
+}
+
+#score-value{
+    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    height: 30px;
+    font-size: large;
+    box-shadow: black;
+    width: 60px;
+}
